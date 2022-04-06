@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw_harvest
+    database: team-2-crunchy
+    schema: harvest_crunchy_data
+    quoting:
+      identifier: false
+    tables:
+      - name: harvest_invoices
