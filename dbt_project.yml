@@ -38,14 +38,17 @@ models:
       +enabled: true
       +tags:
         - "staging"
-    transform:
-      +materialized: view
-      +enabled: true
-      +tags:
-        - "transform"
+      +schema: staging
         
     analytics:
       +materialized: table
       +enabled: true
       +tags:
         - "analytics"
+      +schema: analytics
+      
+    transform:
+      +materialized: view
+      +enabled: true
+      +tags:
+        - "transform"
