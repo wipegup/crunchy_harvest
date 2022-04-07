@@ -3,6 +3,7 @@ with
     base as (select * from {{ base_rel}} ),
     users as (select * from {{ ref('stg_harvest__time_entries_user') }} ),
     tasks as (select * from {{ ref('stg_harvest__time_entries_task') }} ),
+    clients as (select * from {{ ref('stg_harvest__time_entries_client') }} ),
     projects as (select * from {{ ref('stg_harvest__time_entries_project') }} ),
     task_assignments as (select * from {{ ref('stg_harvest__time_entries_task_assignment') }} ),
     user_assignments as (select * from {{ ref('stg_harvest__time_entries_user_assignment') }} ),
@@ -13,11 +14,13 @@ with
             task_id,
             task_assignment_id,
             user_assignment_id,
-            project_id
+            project_id,
+            client_id
         from base 
         join users on users._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
         join user_assignments on user_assignments._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
         join tasks on tasks._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
+        join clients on clients._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
         join task_assignments on task_assignments._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
         join projects on projects._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
     )
