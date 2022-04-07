@@ -1,0 +1,7 @@
+version: 2
+
+models:
+  - name: projects_unioned
+  - name: time_entries_unioned
+  - name: users_role_split
+  - name: invoice_line_items_unioned
