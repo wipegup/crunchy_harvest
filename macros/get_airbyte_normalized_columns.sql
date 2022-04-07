@@ -7,8 +7,8 @@
     {%- endfor %}
 
     {%- for r in dbt_utils.get_relations_by_pattern(schema_pattern=rel.schema, table_pattern=rel.identifier~'%')%}
-        {%- set c = r.table|replace('harvest_invoices_', '') %}
-        {{c}}
+        {%- set c = r.table|replace(rel.identifier~'_', '') %}
+        
         {%- if c in column_names %}
             {% do to_ex.append(c) %}
         {%- endif %}
