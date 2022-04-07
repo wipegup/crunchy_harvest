@@ -11,8 +11,12 @@
     {%- endfor %}
     {%- for m in unnested_modified %}
         {%- set alias_key = 'alias' if 'alias' in m else 'base'%}
-        {%- set alias = (adapter.quote(m[alias_key])|trim)|upper %}
-        {%- set base = (adapter.quote(m['base'])|trim)|upper %}
+        {%- set alias = (adapter.quote(m[alias_key])|trim) %}
+        {%- set base = (adapter.quote(m['base'])|trim) %}
+        {%- if all_upper %}
+            {%- set base = base|upper %}
+            {%- set alias = alias|upper %}
+        {%- endif %}
         {%- if 'relation_alias' in kwargs %}{%- set base = (kwargs['relation_alias'] ~ '.' ~ base) %}{%- endif %}
         {%- if 'cast' in m %}{%- set base = 'CAST(' ~ base ~' AS ' ~ (m['cast']|upper) ~ ')' %}{%- endif %}
     {{base}} AS {{ alias }},
