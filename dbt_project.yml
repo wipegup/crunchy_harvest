@@ -46,9 +46,10 @@ models:
       +tags:
         - "analytics"
       +schema: analytics
-      
+
     transform:
       +materialized: view
       +enabled: true
       +tags:
         - "transform"
+      +schema: transform
