@@ -1,4 +1,8 @@
 version: 2
 
 models:
-  - name: fact_invoices
+  - name: fact_invoice_line_items
+  - name: fact_time_entries
+  - name: dim_users
+  - name: dim_projects
+  - name: dim_clients
