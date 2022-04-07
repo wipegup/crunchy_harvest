@@ -32,19 +32,20 @@ clean-targets:         # directories to be removed by `dbt clean`
 # as tables. These settings can be overridden in the individual model files
 # using the `{{ config(...) }}` macro.
 models:
-  staging:
-    +materialized: view
-    +enabled: true
-    +tags:
-      - "staging"
-  transform:
-    +materialized: view
-    +enabled: true
-    +tags:
-      - "transform"
-      
-  analytics:
-    +materialized: table
-    +enabled: true
-    +tags:
-      - "analytics"
+  crunchy_harvest:
+    staging:
+      +materialized: view
+      +enabled: true
+      +tags:
+        - "staging"
+    transform:
+      +materialized: view
+      +enabled: true
+      +tags:
+        - "transform"
+        
+    analytics:
+      +materialized: table
+      +enabled: true
+      +tags:
+        - "analytics"
