@@ -6,3 +6,4 @@ models:
   - name: dim_users
   - name: dim_projects
   - name: dim_clients
+  - name: dim_tasks
