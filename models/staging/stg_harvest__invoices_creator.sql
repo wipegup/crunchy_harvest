@@ -7,7 +7,8 @@ with src as (select * from {{ rel }})
 select {{
     stage_columns(rel, all_upper=false, except=except_columns, 
         modified=[
-            cast('date', date_columns)
+            cast('date', date_columns),
+            rename(['id'], prefix='creator_')
         ]
     )
 }} from src
