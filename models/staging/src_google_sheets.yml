@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw_sheets
+    database: team-2-crunchy
+    schema: harvest_crunchy_data
+    quoting:
+      identifier: false
+    tables:
+      - name: google_sheets_Customerlist
+      - name: google_sheets_Sheet1

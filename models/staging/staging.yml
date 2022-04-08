@@ -1,6 +1,8 @@
 version: 2
 
 models:
+  - name: stg_sheets__customers
+  - name: stg_sheets__employees
   - name: stg_harvest__uninvoiced
   - name: stg_harvest__task_assignments_task
   - name: stg_harvest__invoice_payments_payment_gateway
