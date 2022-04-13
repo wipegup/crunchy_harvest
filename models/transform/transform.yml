@@ -7,3 +7,4 @@ models:
   - name: invoice_line_items_unioned
   - name: employee_start_date_fixed
   - name: client_names_cleaned
+  - name: user_info_join
