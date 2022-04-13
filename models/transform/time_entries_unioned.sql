@@ -1,28 +1,21 @@
 {%- set base_rel = ref('stg_harvest__time_entries') %}
+{%- set join_tables = ['user', 'task', 'task_assignment', 'user_assignment', 'client', 'project'] %}
 with
     base as (select * from {{ base_rel}} ),
-    users as (select * from {{ ref('stg_harvest__time_entries_user') }} ),
-    tasks as (select * from {{ ref('stg_harvest__time_entries_task') }} ),
-    clients as (select * from {{ ref('stg_harvest__time_entries_client') }} ),
-    projects as (select * from {{ ref('stg_harvest__time_entries_project') }} ),
-    task_assignments as (select * from {{ ref('stg_harvest__time_entries_task_assignment') }} ),
-    user_assignments as (select * from {{ ref('stg_harvest__time_entries_user_assignment') }} ),
+    {%- for table in join_tables %}
+        {{ table }}s AS (select * from {{ ref('stg_harvest__time_entries_'~table) }} ),
+    {%- endfor %}
     final as (
         select 
             {{ dbt_utils.star(base_rel, except=get_airbyte_cols(base_rel), relation_alias='base') }},
-            user_id,
-            task_id,
-            task_assignment_id,
-            user_assignment_id,
-            project_id,
-            client_id
+            {%- for table in join_tables %}
+                {{table}}_id{% if not loop.last %},{% endif %}
+            {%- endfor %}
         from base 
-        join users on users._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
-        join user_assignments on user_assignments._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
-        join tasks on tasks._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
-        join clients on clients._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
-        join task_assignments on task_assignments._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
-        join projects on projects._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
+        {%- for table in join_tables %}
+            join {{table}}s on {{table}}s._airbyte_harvest_time_entries_hashid = base._airbyte_harvest_time_entries_hashid
+        {%- endfor %}
+        
     )
 {# Want to test to ensure all tasks, users etc exist in individual tables #}
 
