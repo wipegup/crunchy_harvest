@@ -13,4 +13,4 @@ added_roles as (
     {% endfor %}
     from src)
 
-select * from added_roles
+select * from added_roles order by email
